@@ -1,57 +1,109 @@
-const wrappedData = {
-  hoursWatched: 842,
-  titlesCompleted: 113,
-  longestStreakDays: 19,
-  topGenre: "Sci‑Fi Thriller",
-  bingeWindows: [
-    { period: "Jan 6–12", details: "38 episodes, led by The Night Agent marathon" },
-    { period: "Apr 22–28", details: "26 hours watched after 11 PM" },
-    { period: "Aug 14–20", details: "Finished 3 limited series in one week" },
-    { period: "Nov 2–9", details: "Your holiday comfort rewatch sprint" }
-  ],
+const wrapped = {
+  name: 'You',
+  totalHours: 931,
+  titlesFinished: 142,
+  longestStreak: 23,
+  topGenre: 'Sci-Fi Thriller',
   topShows: [
-    "3 Body Problem",
-    "Baby Reindeer",
-    "Arcane",
-    "Stranger Things",
-    "Dark"
+    ['3 Body Problem', '74h', '🪐'],
+    ['Arcane', '66h', '⚔️'],
+    ['Dark', '57h', '🕳️'],
+    ['Stranger Things', '42h', '🧇'],
+    ['Baby Reindeer', '38h', '🦌']
   ],
-  vibes: ["Mind-bending", "Fast-paced", "Dark humor", "Plot twists"]
+  timeline: [
+    ['Winter Arc', 'Finished 5 series in January.'],
+    ['Midnight Mode', '63% sessions started after 11PM.'],
+    ['Summer Sprint', '18 episodes watched in one weekend.'],
+    ['Finale Season', 'November became your rewatch month.']
+  ],
+  mood: ['High stakes', 'Twisty plots', 'Mind-benders', 'Dark humor']
 };
 
-const stats = [
-  ["Hours Watched", `${wrappedData.hoursWatched}h`],
-  ["Titles Completed", wrappedData.titlesCompleted],
-  ["Longest Streak", `${wrappedData.longestStreakDays} days`],
-  ["Top Genre", wrappedData.topGenre]
+const slides = [
+  {
+    title: `${wrapped.name}, your binge era was cinematic.`,
+    subtitle: 'A premium rewind of your most iconic streaming year.',
+    content: `
+      <section class="stats-grid">
+        <article class="metric full"><span>Total watch time</span><strong>${wrapped.totalHours}h</strong></article>
+        <article class="metric"><span>Titles finished</span><strong>${wrapped.titlesFinished}</strong></article>
+        <article class="metric"><span>Longest streak</span><strong>${wrapped.longestStreak} days</strong></article>
+        <article class="metric full"><span>Signature genre</span><strong>${wrapped.topGenre}</strong></article>
+      </section>
+    `
+  },
+  {
+    title: 'Your Top 5 Shows',
+    subtitle: 'The titles that owned your free time.',
+    content: `
+      <ol class="show-list">
+        ${wrapped.topShows.map((show, i) => `
+          <li class="show-item">
+            <strong>#${i + 1}</strong>
+            <span>${show[2]}</span>
+            <div>
+              <h3>${show[0]}</h3>
+              <p>${show[1]} watched</p>
+            </div>
+          </li>`).join('')}
+      </ol>
+    `
+  },
+  {
+    title: 'Your Binge Timeline',
+    subtitle: 'Where your streaming energy peaked.',
+    content: `
+      <ul class="timeline">
+        ${wrapped.timeline.map((t) => `<li><h3>${t[0]}</h3><p>${t[1]}</p></li>`).join('')}
+      </ul>
+    `
+  },
+  {
+    title: 'Mood Profile: The Adrenaline Oracle 🔮',
+    subtitle: 'You chase tension, payoff, and “one more episode” endings.',
+    content: `
+      <div class="chips">${wrapped.mood.map((m) => `<span class="chip">${m}</span>`).join('')}</div>
+      <section class="stats-grid">
+        <article class="metric"><span>Late-night sessions</span><strong>63%</strong></article>
+        <article class="metric"><span>Plot-twist tolerance</span><strong>Elite</strong></article>
+      </section>
+    `
+  }
 ];
 
-const statsGrid = document.getElementById("statsGrid");
-stats.forEach(([label, value], index) => {
-  const card = document.createElement("article");
-  card.className = "stat-card";
-  card.style.animationDelay = `${index * 120}ms`;
-  card.innerHTML = `<p class="label">${label}</p><p class="value">${value}</p>`;
-  statsGrid.appendChild(card);
+let index = 0;
+
+const slideCard = document.getElementById('slideCard');
+const dots = document.getElementById('dots');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+function render() {
+  const slide = slides[index];
+  slideCard.innerHTML = `
+    <p class="eyebrow">NETFLIX WRAPPED 2025</p>
+    <h1>${slide.title}</h1>
+    <p class="subtitle">${slide.subtitle}</p>
+    ${slide.content}
+  `;
+
+  dots.innerHTML = slides
+    .map((_, i) => `<span class="dot ${i === index ? 'active' : ''}"></span>`)
+    .join('');
+
+  prevBtn.disabled = index === 0;
+  nextBtn.disabled = index === slides.length - 1;
+}
+
+prevBtn.addEventListener('click', () => {
+  index = Math.max(0, index - 1);
+  render();
 });
 
-const timeline = document.getElementById("bingeTimeline");
-wrappedData.bingeWindows.forEach((entry) => {
-  const li = document.createElement("li");
-  li.innerHTML = `<strong>${entry.period}</strong><br /><span>${entry.details}</span>`;
-  timeline.appendChild(li);
+nextBtn.addEventListener('click', () => {
+  index = Math.min(slides.length - 1, index + 1);
+  render();
 });
 
-const showList = document.getElementById("topShows");
-wrappedData.topShows.forEach((show) => {
-  const li = document.createElement("li");
-  li.textContent = show;
-  showList.appendChild(li);
-});
-
-const recommendation = document.getElementById("recommendation");
-recommendation.innerHTML = `
-  <h3>Your 2026 Mood Profile: The Adrenaline Oracle 🔮</h3>
-  <p>You chase stories with high stakes and emotional payoff. Keep the dopamine rolling with gritty mysteries, cerebral sci‑fi, and short serial dramas.</p>
-  <div>${wrappedData.vibes.map((vibe) => `<span class="chip">${vibe}</span>`).join("")}</div>
-`;
+render();

@@ -6,37 +6,21 @@
     <title>Netflix Wrapped</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="noise"></div>
-    <main class="app">
-      <header class="hero glass">
-        <p class="kicker">2025 Streaming Recap</p>
-        <h1>Your Netflix Wrapped</h1>
-        <p class="subtitle">A cinematic rewind of your binge era — fast, glossy, and dramatic.</p>
-      </header>
+    <div class="ambient a1"></div>
+    <div class="ambient a2"></div>
 
-      <section class="stats-grid" id="statsGrid"></section>
+    <main class="app-shell">
+      <section class="card glass" id="slideCard"></section>
 
-      <section class="timeline glass" id="timelineSection">
-        <div>
-          <h2>Peak Binge Windows</h2>
-          <p>Your hottest watch streaks this year.</p>
-        </div>
-        <ul id="bingeTimeline"></ul>
-      </section>
-
-      <section class="top-list glass">
-        <h2>Top 5 Shows You Couldn't Quit</h2>
-        <ol id="topShows"></ol>
-      </section>
-
-      <section class="recommendation glass" id="recommendation"></section>
+      <footer class="controls glass">
+        <button id="prevBtn" aria-label="Previous slide">← Prev</button>
+        <div class="dots" id="dots" aria-label="Slide progress"></div>
+        <button id="nextBtn" aria-label="Next slide">Next →</button>
+      </footer>
     </main>
 
     <script src="script.js"></script>
