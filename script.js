@@ -45,6 +45,15 @@ const wrapped = {
   mood: ['High stakes', 'Twisty plots', 'Mind-benders', 'Dark humor']
 };
 
+function showInitials(title) {
+  return title
+    .split(' ')
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join('')
+    .toUpperCase();
+}
+
 const slides = [
   {
     title: `${wrapped.name}, your binge era was cinematic.`,
@@ -60,7 +69,7 @@ const slides = [
   },
   {
     title: 'Your Top 5 Shows',
-    subtitle: 'Each title now includes its poster image.',
+    subtitle: 'Each title includes a poster and offline-safe fallback card.',
     content: `
       <ol class="show-list">
         ${wrapped.topShows
@@ -68,7 +77,10 @@ const slides = [
             (show, i) => `
           <li class="show-item">
             <strong class="show-rank">#${i + 1}</strong>
-            <img class="poster" src="${show.poster}" alt="${show.title} poster" loading="lazy" />
+            <figure class="poster-frame">
+              <img class="poster" src="${show.poster}" alt="${show.title} poster" loading="lazy" />
+              <figcaption class="poster-fallback">${showInitials(show.title)}</figcaption>
+            </figure>
             <div>
               <h3>${show.title}</h3>
               <p>${show.watchTime} watched</p>
@@ -117,6 +129,14 @@ function render() {
     ${slide.content}
   `;
 
+  slideCard.querySelectorAll('.poster').forEach((img) => {
+    img.addEventListener('error', () => {
+      img.classList.add('hidden');
+      const fallback = img.parentElement.querySelector('.poster-fallback');
+      if (fallback) fallback.classList.add('visible');
+    });
+  });
+
   dots.innerHTML = slides
     .map((_, i) => `<span class="dot ${i === index ? 'active' : ''}"></span>`)
     .join('');
@@ -133,6 +153,17 @@ prevBtn.addEventListener('click', () => {
 nextBtn.addEventListener('click', () => {
   index = Math.min(slides.length - 1, index + 1);
   render();
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowLeft' && index > 0) {
+    index -= 1;
+    render();
+  }
+  if (event.key === 'ArrowRight' && index < slides.length - 1) {
+    index += 1;
+    render();
+  }
 });
 
 render();
