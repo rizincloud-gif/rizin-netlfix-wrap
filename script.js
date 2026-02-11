@@ -5,11 +5,36 @@ const wrapped = {
   longestStreak: 23,
   topGenre: 'Sci-Fi Thriller',
   topShows: [
-    ['3 Body Problem', '74h', '🪐'],
-    ['Arcane', '66h', '⚔️'],
-    ['Dark', '57h', '🕳️'],
-    ['Stranger Things', '42h', '🧇'],
-    ['Baby Reindeer', '38h', '🦌']
+    {
+      title: '3 Body Problem',
+      watchTime: '74h',
+      poster:
+        'https://upload.wikimedia.org/wikipedia/en/1/10/3_Body_Problem_series_poster.jpg'
+    },
+    {
+      title: 'Arcane',
+      watchTime: '66h',
+      poster:
+        'https://upload.wikimedia.org/wikipedia/en/0/00/Arcane_2021_poster.jpg'
+    },
+    {
+      title: 'Dark',
+      watchTime: '57h',
+      poster:
+        'https://upload.wikimedia.org/wikipedia/en/d/da/DarkNetflixPosterEnglish.jpg'
+    },
+    {
+      title: 'Stranger Things',
+      watchTime: '42h',
+      poster:
+        'https://upload.wikimedia.org/wikipedia/en/f/f7/Stranger_Things_season_4.jpg'
+    },
+    {
+      title: 'Baby Reindeer',
+      watchTime: '38h',
+      poster:
+        'https://upload.wikimedia.org/wikipedia/en/0/0d/Baby_Reindeer_title_card.png'
+    }
   ],
   timeline: [
     ['Winter Arc', 'Finished 5 series in January.'],
@@ -23,7 +48,7 @@ const wrapped = {
 const slides = [
   {
     title: `${wrapped.name}, your binge era was cinematic.`,
-    subtitle: 'A premium rewind of your most iconic streaming year.',
+    subtitle: 'A premium rewind in the official Netflix red + black aesthetic.',
     content: `
       <section class="stats-grid">
         <article class="metric full"><span>Total watch time</span><strong>${wrapped.totalHours}h</strong></article>
@@ -35,18 +60,22 @@ const slides = [
   },
   {
     title: 'Your Top 5 Shows',
-    subtitle: 'The titles that owned your free time.',
+    subtitle: 'Each title now includes its poster image.',
     content: `
       <ol class="show-list">
-        ${wrapped.topShows.map((show, i) => `
+        ${wrapped.topShows
+          .map(
+            (show, i) => `
           <li class="show-item">
-            <strong>#${i + 1}</strong>
-            <span>${show[2]}</span>
+            <strong class="show-rank">#${i + 1}</strong>
+            <img class="poster" src="${show.poster}" alt="${show.title} poster" loading="lazy" />
             <div>
-              <h3>${show[0]}</h3>
-              <p>${show[1]} watched</p>
+              <h3>${show.title}</h3>
+              <p>${show.watchTime} watched</p>
             </div>
-          </li>`).join('')}
+          </li>`
+          )
+          .join('')}
       </ol>
     `
   },

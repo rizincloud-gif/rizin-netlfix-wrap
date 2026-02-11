@@ -1,10 +1,10 @@
 # Netflix Wrapped (Stylish Interactive Edition)
 
-An interactive, highly-styled Netflix Wrapped web experience inspired by Spotify Wrapped.
+An interactive Netflix Wrapped web experience with a stronger Netflix red/black visual style and poster images for each top title.
 
 ## Stack
 - HTML5
-- Modern CSS (glassmorphism, gradients, responsive layout)
+- Modern CSS (Netflix-inspired dark/red theme, responsive layout)
 - Vanilla JavaScript (slide engine + dynamic rendering)
 - npm scripts for local development
 
