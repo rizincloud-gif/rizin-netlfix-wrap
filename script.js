@@ -9,31 +9,31 @@ const wrapped = {
       title: '3 Body Problem',
       watchTime: '74h',
       poster:
-        'https://upload.wikimedia.org/wikipedia/en/1/10/3_Body_Problem_series_poster.jpg'
+        'assets/posters/three-body-problem.svg'
     },
     {
       title: 'Arcane',
       watchTime: '66h',
       poster:
-        'https://upload.wikimedia.org/wikipedia/en/0/00/Arcane_2021_poster.jpg'
+        'assets/posters/arcane.svg'
     },
     {
       title: 'Dark',
       watchTime: '57h',
       poster:
-        'https://upload.wikimedia.org/wikipedia/en/d/da/DarkNetflixPosterEnglish.jpg'
+        'assets/posters/dark.svg'
     },
     {
       title: 'Stranger Things',
       watchTime: '42h',
       poster:
-        'https://upload.wikimedia.org/wikipedia/en/f/f7/Stranger_Things_season_4.jpg'
+        'assets/posters/stranger-things.svg'
     },
     {
       title: 'Baby Reindeer',
       watchTime: '38h',
       poster:
-        'https://upload.wikimedia.org/wikipedia/en/0/0d/Baby_Reindeer_title_card.png'
+        'assets/posters/baby-reindeer.svg'
     }
   ],
   timeline: [
